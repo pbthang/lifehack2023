@@ -1,0 +1,32 @@
+{
+  "news": [
+    {
+      "name": "World Vision’s family carnival at Sentosa",
+      "description": "Finish the 30 Hour Famine with a bang at this carnival with family-friendly activities, a special art installation, and live music by The Freshman.",
+      "category": "Festival",
+      "imgUrl": "https://media.timeout.com/images/106010022/1372/1029/image.jpg",
+      "url": "https://www.worldvision.org.sg/en/uncharted#welcome-message"
+    },
+    {
+      "name": "Doubt: A Parable",
+      "description": "Do you know the Oscar-nominated movie starring Meryl Streep and Philip Seymour Hoffman? Now catch local theatre company Pangdemonium's adaptation of John Patrick Shanley’s Pulitzer Prize and Tony Award-winning play Doubt: A Parable.",
+      "category": "Theatre",
+      "imgUrl": "https://media.timeout.com/images/106009880/1372/1029/image.jpg",
+      "url": "https://www.timeout.com/singapore/theatre/doubt-a-parable"
+    },
+    {
+      "name": "Singapore International Festival of Arts",
+      "description": "SIFA is a yearly tradition for many lovers of the arts here in Singapore. And this year, the festival continues with The Anatomy of Performance, the three-year concept that was first introduced last year.",
+      "category": "Art",
+      "imgUrl": "https://media.timeout.com/images/106001574/380/285/image.jpg",
+      "url": "https://www.timeout.com/singapore/things-to-do/the-time-out-singapore-hotlist"
+    },
+    {
+      "name": "i Light Singapore",
+      "description": "The Marina Bay precinct is looking a touch brighter than usual this week as it illuminates for the annual sustainable light art festival.",
+      "category": "Festival",
+      "imgUrl": "https://media.timeout.com/images/106009524/1372/1029/image.jpg",
+      "url": "https://www.timeout.com/singapore/things-to-do/i-light-singapore"
+    }
+  ]
+}
