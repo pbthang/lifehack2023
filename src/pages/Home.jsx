@@ -6,9 +6,15 @@ import {
   Container,
   Flex,
   Space,
+  SimpleGrid,
+  Card,
+  Image,
+  Group,
+  Badge
 } from "@mantine/core";
 import heroBackground from "../assets/hero.png";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Home() {
   return (
@@ -16,6 +22,10 @@ function Home() {
       <Hero />
       <Space h={40} />
       <Introduction />
+      <Space h={40} />
+      <News />
+      <Space h={40} />
+
       {/* TODO: Create news section */}
       {/* TODO: Create suggestion section */}
     </>
@@ -104,6 +114,59 @@ const Introduction = () => {
       </Text>
       <Space h={12} />
       <Text align={"center"}>Safe travels and have a blast! 🌈🌴🌞</Text>
+    </Container>
+  );
+};
+
+const News = () => {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    fetch("../../supabase/data/news.json")
+      .then((response) => response.json())
+      .then((data) => setNews(data.news))
+      .catch((error) => console.log(error));
+  }, []);
+
+  return (
+    <Container>
+      <Group position="center" align="center" spacing={"xs"}>
+        <Title order={1} align={"center"} color="#b5b5b5">
+          Latest
+        </Title>
+        <Title order={1} align={"center"}>
+          News
+        </Title>
+      </Group>
+      <Space h={24} />
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: '48rem', cols: 1 }]}>
+        {news.map((newsItem, i) => 
+          <Card shadow="sm" padding="lg" radius="md" withBorder key={i}>
+            <Card.Section>
+              <Image
+                src={newsItem.imgUrl}
+                height={160}
+                alt="With default placeholder"
+              />
+            </Card.Section>
+
+            <Group position="center" mt="md" mb="xs">
+              <Text weight={500}>{newsItem.name}</Text>
+              <Badge color="pink" variant="light">
+                {newsItem.category}
+              </Badge>
+            </Group>
+
+            <Text size="sm" color="dimmed" lineClamp={3}>
+              {newsItem.description}
+            </Text>
+
+            <Button variant="light" color="blue" fullWidth mt="md" radius="md" href={newsItem.url} component="a" target="_blank" rel="noopener noreferrer">
+              Find out more
+            </Button>
+          </Card>
+        )}
+      </SimpleGrid>
     </Container>
   );
 };
