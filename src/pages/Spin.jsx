@@ -17,6 +17,7 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useLocalStorage } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import { IconX } from "@tabler/icons-react";
 import axios from "axios";
@@ -28,6 +29,10 @@ const PLACES_API_URL = import.meta.env.VITE_PLACES_API_URL;
 const PLACES_API_KEY = import.meta.env.VITE_PLACES_API_KEY;
 
 function Spin() {
+  const [data, setData] = useLocalStorage({
+    key: "places-data",
+    defaultValue: [],
+  });
   const [mrt, setMrt] = useState(null);
   const [places, setPlaces] = useState([]);
   const [placesLoading, setPlacesLoading] = useState(false);

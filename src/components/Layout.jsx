@@ -80,7 +80,7 @@ const MyHeader = () => {
         <Flex align={"center"} gap={6}>
           <IconBackpack size={24} color={theme.colors.red[9]} />
           <Text size={"lg"} weight={600}>
-            Lorem Ipsum
+            TravelSpinner
           </Text>
         </Flex>
         <Button>
