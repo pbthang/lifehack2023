@@ -1,8 +1,8 @@
-import { Text, Title } from "@mantine/core";
+import { Container, Text, Title } from "@mantine/core";
 
 function Profile() {
   return (
-    <>
+    <Container py={"md"}>
       <Title>User Profile</Title>
       <Text>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia corrupti
@@ -10,7 +10,7 @@ function Profile() {
         ipsum, doloribus repellendus necessitatibus quae, voluptatibus
         architecto rem nesciunt recusandae dolore!
       </Text>
-    </>
+    </Container>
   );
 }
 
