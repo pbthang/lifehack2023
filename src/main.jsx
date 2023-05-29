@@ -16,7 +16,17 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         theme={{
           colors: {},
           colorScheme: "light",
-          components: {},
+          components: {
+            Button: {
+              defaultProps: {
+                radius: "lg",
+                sx: {
+                  paddingLeft: 32,
+                  paddingRight: 32,
+                },
+              },
+            },
+          },
         }}
       >
         <ModalsProvider>

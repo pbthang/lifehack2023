@@ -1,13 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useTheme } from "@emotion/react";
 import {
   AppShell,
   Navbar,
   Header,
-  NavLink,
   Text,
   Group,
   Footer,
-  Container,
   Flex,
   Button,
   Tooltip,
@@ -17,11 +16,11 @@ import {
   IconBackpack,
   IconHome,
   IconInfoCircle,
+  IconRotate360,
   IconUserCircle,
 } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-// eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
   return (
     <AppShell
@@ -36,6 +35,7 @@ const Layout = ({ children }) => {
               : theme.colors.gray[0],
           paddingTop: 60,
           paddingLeft: 56,
+          paddingRight: 0,
         },
       })}
     >
@@ -55,27 +55,18 @@ const MyNavbar = () => {
           gap: 12,
         }}
       >
-        <Tooltip label="Home" position="right">
-          <Link to="/">
-            <ActionIcon title="Home" variant="subtle">
-              <IconHome size={24} />
-            </ActionIcon>
-          </Link>
-        </Tooltip>
-        <Link to="/profile">
-          <Tooltip label="Profile" position="right">
-            <ActionIcon title="Profile" variant="subtle">
-              <IconUserCircle size={24} />
-            </ActionIcon>
-          </Tooltip>
-        </Link>
-        <Link to="/about">
-          <Tooltip label="About us" position="right">
-            <ActionIcon title="About us" variant="subtle">
-              <IconInfoCircle size={24} />
-            </ActionIcon>
-          </Tooltip>
-        </Link>
+        <NavItem name={"Home"} to={"/"}>
+          <IconHome size={24} />
+        </NavItem>
+        <NavItem name={"Spin it"} to={"/spin"}>
+          <IconRotate360 size={24} />
+        </NavItem>
+        <NavItem name={"Profile"} to={"/profile"}>
+          <IconUserCircle size={24} />
+        </NavItem>
+        <NavItem name={"About us"} to={"/about"}>
+          <IconInfoCircle size={24} />
+        </NavItem>
       </Navbar.Section>
     </Navbar>
   );
@@ -100,6 +91,7 @@ const MyHeader = () => {
   );
 };
 
+// eslint-disable-next-line no-unused-vars
 const MyFooter = () => {
   return (
     <Footer
@@ -112,6 +104,23 @@ const MyFooter = () => {
     >
       <Text size={"xs"}>NUS Computing - Lifehack 2023</Text>
     </Footer>
+  );
+};
+
+const NavItem = ({ name, children, to }) => {
+  return (
+    <Tooltip label={name} position="right">
+      <NavLink
+        to={to}
+        className={({ isActive, isPending }) =>
+          isPending ? "pending" : isActive ? "active" : ""
+        }
+      >
+        <ActionIcon title={name} variant="subtle">
+          {children}
+        </ActionIcon>
+      </NavLink>
+    </Tooltip>
   );
 };
 
