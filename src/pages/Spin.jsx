@@ -19,7 +19,7 @@ import {
 import { useForm } from "@mantine/form";
 import { useLocalStorage } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
-import { IconX } from "@tabler/icons-react";
+import { IconCheck, IconX } from "@tabler/icons-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -32,6 +32,10 @@ function Spin() {
   const [data, setData] = useLocalStorage({
     key: "places-data",
     defaultValue: [],
+  });
+  const [currSpin, setCurrSpin] = useLocalStorage({
+    key: "curr-spin",
+    defaultValue: null,
   });
   const [mrt, setMrt] = useState(null);
   const [places, setPlaces] = useState([]);
@@ -48,7 +52,22 @@ function Spin() {
     },
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(currSpin);
+    if (currSpin) {
+      setMrt(currSpin.mrt);
+      setPlaces(currSpin.places);
+    }
+  }, [currSpin?.mrt?.stop_id]);
+
+  useEffect(() => {
+    if (mrt) {
+      setCurrSpin({
+        mrt,
+        places,
+      });
+    }
+  }, [mrt, places]);
 
   const handleSubmit = async (values) => {
     try {
@@ -104,6 +123,37 @@ function Spin() {
     setPlacesLoading(false);
   };
 
+  const handleSave = () => {
+    const existingData = data.find((x) => x.mrt.stop_id === mrt.stop_id);
+    if (existingData) {
+      showNotification({
+        title: "Info",
+        message: "You have already saved this journey!",
+        color: "blue",
+      });
+      return;
+    }
+    setData([
+      ...data,
+      {
+        mrt,
+        places,
+      },
+    ]);
+    showNotification({
+      title: "Success",
+      message: "Saved successfully!",
+      color: "green",
+      icon: <IconCheck />,
+    });
+  };
+
+  const handleReset = () => {
+    setCurrSpin(null);
+    setMrt(null);
+    setPlaces([]);
+  };
+
   return (
     <>
       <Container py={"md"}>
@@ -133,9 +183,22 @@ function Spin() {
               ]}
               {...form.getInputProps("region", { type: "select" })}
             />
-            <Button type="submit" loading={form.values.loading}>
-              Spin
-            </Button>
+            <Flex justify={"space-between"} gap={"md"}>
+              <Button
+                type="submit"
+                loading={form.values.loading}
+                sx={{ flexGrow: 1 }}
+              >
+                Spin
+              </Button>
+              <Button
+                sx={{ flexGrow: 1 }}
+                variant={"outline"}
+                onClick={handleReset}
+              >
+                Reset
+              </Button>
+            </Flex>
           </Box>
         </Paper>
         <Space h="lg" />
@@ -156,6 +219,14 @@ function Spin() {
             <Space h="md" />
             <Button onClick={handleGeneratePlaces} loading={placesLoading}>
               Generate suggested places
+            </Button>
+            <Button
+              variant="outline"
+              ml={"md"}
+              disabled={!places?.length}
+              onClick={handleSave}
+            >
+              Save it
             </Button>
           </Paper>
         )}
@@ -185,7 +256,9 @@ const PlaceList = ({ places }) => {
                 <strong>Tags:</strong> {place.tags.join(", ")}
               </Text>
               <Anchor
-                href={`http://www.google.com/maps/place/${place.location.latitude},${place.location.longitude}`}
+                href={`https://www.google.com/maps/search/?api=1&query=${addressToString(
+                  place.address
+                )}`}
                 rel="noreferrer"
                 target="_blank"
               >

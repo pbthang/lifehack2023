@@ -83,8 +83,8 @@ const MyHeader = () => {
             TravelSpinner
           </Text>
         </Flex>
-        <Button>
-          <Text>Login</Text>
+        <Button component="a" href="/about">
+          <Text>Contact us</Text>
         </Button>
       </Group>
     </Header>
