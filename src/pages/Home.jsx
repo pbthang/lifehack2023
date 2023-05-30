@@ -10,7 +10,7 @@ import {
   Card,
   Image,
   Group,
-  Badge
+  Badge,
 } from "@mantine/core";
 import heroBackground from "../assets/hero.png";
 import { Link } from "react-router-dom";
@@ -122,7 +122,7 @@ const News = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("../../supabase/data/news.json")
+    fetch("/data/news.json")
       .then((response) => response.json())
       .then((data) => setNews(data.news))
       .catch((error) => console.log(error));
@@ -139,8 +139,8 @@ const News = () => {
         </Title>
       </Group>
       <Space h={24} />
-      <SimpleGrid cols={2} breakpoints={[{ maxWidth: '48rem', cols: 1 }]}>
-        {news.map((newsItem, i) => 
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: "48rem", cols: 1 }]}>
+        {news.map((newsItem, i) => (
           <Card shadow="sm" padding="lg" radius="md" withBorder key={i}>
             <Card.Section>
               <Image
@@ -161,11 +161,21 @@ const News = () => {
               {newsItem.description}
             </Text>
 
-            <Button variant="light" color="blue" fullWidth mt="md" radius="md" href={newsItem.url} component="a" target="_blank" rel="noopener noreferrer">
+            <Button
+              variant="light"
+              color="blue"
+              fullWidth
+              mt="md"
+              radius="md"
+              href={newsItem.url}
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Find out more
             </Button>
           </Card>
-        )}
+        ))}
       </SimpleGrid>
     </Container>
   );
