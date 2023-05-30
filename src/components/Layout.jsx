@@ -19,7 +19,7 @@ import {
   IconRotate360,
   IconUserCircle,
 } from "@tabler/icons-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Layout = ({ children }) => {
   return (
@@ -83,9 +83,11 @@ const MyHeader = () => {
             TravelSpinner
           </Text>
         </Flex>
-        <Button component="a" href="/about">
-          <Text>Contact us</Text>
-        </Button>
+        <Link to={"/about"}>
+          <Button>
+            <Text>Contact us</Text>
+          </Button>
+        </Link>
       </Group>
     </Header>
   );
